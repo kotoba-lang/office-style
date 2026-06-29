@@ -1,11 +1,11 @@
 {
-  "name": "@kotoba-lang/style",
+  "name": "@kotoba-lang/office-style",
   "version": "0.1.0",
   "description": "Extract presentation tone / manner / style from .pptx into a single StyleIR: deterministic OOXML layer (theme colors, fonts, slide master/layout, placeholders, guides) + Gemma 4 vision interpretation layer.",
   "type": "module",
   "license": "MIT",
   "bin": {
-    "style": "dist/src/cli.js"
+    "office-style": "dist/src/cli.js"
   },
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -38,7 +38,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kotoba-lang/style.git"
+    "url": "git+https://github.com/kotoba-lang/office-style.git"
   },
   "publishConfig": {
     "access": "public",
@@ -71,5 +71,5 @@
     "tsx": "^4.19.0",
     "typescript": "^5.9.3"
   },
-  "homepage": "https://github.com/kotoba-lang/style#readme"
+  "homepage": "https://github.com/kotoba-lang/office-style#readme"
 }
