@@ -2,6 +2,7 @@ node_modules/
 dist/
 examples/sample.pptx
 *.tsbuildinfo
+.cpcache/
 
 # transformers model cache
 .cache/
