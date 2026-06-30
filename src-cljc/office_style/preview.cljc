@@ -9,8 +9,12 @@
       (str/replace ">" "&gt;")
       (str/replace "\"" "&quot;")))
 
+(defn- hex-color [x fallback]
+  (let [s (-> (or x fallback) str (str/replace #"^#" "") str/upper-case)]
+    (if (re-matches #"[0-9A-F]{6}" s) s fallback)))
+
 (defn- color [ir role fallback]
-  (str "#" (get-in ir [:office-style/colors role] fallback)))
+  (str "#" (hex-color (get-in ir [:office-style/colors role]) fallback)))
 
 (defn preview-svg [ir]
   (let [w 960

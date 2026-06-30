@@ -5,9 +5,21 @@
 Pure CLJC / EDN StyleIR extraction for PowerPoint `.pptx` packages.
 
 `office-style` reads deterministic PowerPoint style data directly from OOXML:
-theme colors, theme fonts, slide size, slide parts, layouts, and masters. It can
-also render a compact SVG preview and project the result into a svgraph-friendly
-EDN shape.
+theme colors (`srgbClr` and `sysClr lastClr`), theme fonts, slide size, slide
+parts, layouts, and masters. It can also render a compact SVG preview and
+project the result into a svgraph-friendly EDN shape.
+
+Extraction is intentionally tolerant of incomplete decks: missing themes produce
+empty color/font maps, missing slide size stays nil, invalid size numbers fall
+back to zero, numbered slides/layouts/masters use natural ordering, theme font
+attributes decode named/numeric XML entities, and single- or double-quoted XML
+attributes are accepted, including pretty-printed color/font scheme XML. Preview
+SVG output escapes text and validates colors before writing attributes. The OPC
+reader keeps XML and relationship parts only, so binary media never enters the
+StyleIR input map. The svgraph projection also normalizes invalid direct IR slide
+sizes, including non-finite values, back to the default 16:9 size and emits empty
+theme maps when theme data is absent. Direct `style-ir` calls with malformed
+package entries fall back to an empty StyleIR instead of throwing.
 
 ## Runtime
 
@@ -62,3 +74,10 @@ npx @kotoba-lang/office-style template deck.pptx template.edn
 ```bash
 clojure -X:test
 ```
+
+The test suite covers StyleIR extraction, XML/relationship input filtering,
+natural part ordering, `srgbClr`/`sysClr` theme colors, single/double quoted XML
+attributes, pretty-printed color/font scheme XML, theme font entity decoding,
+missing style metadata, invalid/non-finite slide sizes, preview SVG fallbacks,
+svgraph projection fallbacks, malformed direct package fallbacks, and CLI
+commands.

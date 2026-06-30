@@ -21,5 +21,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: clojure -X:test
-      - run: node bin/kotoba-office-style.js
+      - name: Test CLJC
+        run: clojure -X:test
+      - name: Test npm package script
+        run: npm test
+      - name: Smoke npm bin wrapper
+        run: node bin/kotoba-office-style.js

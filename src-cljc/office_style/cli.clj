@@ -23,24 +23,32 @@
 
 (defn- template [ir]
   {:office-style/template-version 1
-   :office-style/colors (:office-style/colors ir)
-   :office-style/fonts (:office-style/fonts ir)
+   :office-style/colors (or (:office-style/colors ir) {})
+   :office-style/fonts (or (:office-style/fonts ir) {})
    :office-style/slide-size (:office-style/slide-size ir)
-   :office-style/layouts (:office-style/layouts ir)
-   :office-style/masters (:office-style/masters ir)})
+   :office-style/layouts (or (:office-style/layouts ir) [])
+   :office-style/masters (or (:office-style/masters ir) [])})
+
+(defn- require-file [file]
+  (when-not file
+    (throw (ex-info (usage) {})))
+  file)
 
 (defn -main [& args]
   (try
     (case (first args)
       "extract" (let [[_ file out] args]
+                  (require-file file)
                   (emit (style/extract-bytes (read-bytes file)) out))
       "template" (let [[_ file out] args]
+                   (require-file file)
                    (emit (template (style/extract-bytes (read-bytes file))) out))
       "preview" (let [[_ file out] args]
                   (when-not (and file out) (throw (ex-info (usage) {})))
                   (spit out (preview/preview-svg (style/extract-bytes (read-bytes file))))
                   (prn {:office-style/path out}))
       "svgraph" (let [[_ file out] args]
+                  (require-file file)
                   (emit (svgraph/presentation (style/extract-bytes (read-bytes file))) out))
       (println (usage)))
     (catch Exception e
