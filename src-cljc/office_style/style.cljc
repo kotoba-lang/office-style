@@ -44,6 +44,8 @@
                      sort
                      vec)]
     {:office-style/kind :style-ir
+     :office-style/version "style-ir/1"
+     :office-style/source {:office-style/app :ppt}
      :office-style/colors (srgb-colors theme-xml)
      :office-style/fonts (typefaces theme-xml)
      :office-style/slide-size (slide-size presentation-xml)

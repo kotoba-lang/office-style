@@ -1,5 +1,7 @@
 (ns office-style.style-test
   (:require [clojure.test :refer [deftest is]]
+            [office-style.preview :as preview]
+            [office-style.svgraph :as svgraph]
             [office-style.style :as style])
   (:import [java.io ByteArrayOutputStream]
            [java.util.zip ZipEntry ZipOutputStream]))
@@ -27,4 +29,7 @@
             :office-style/cy 5143500
             :office-style/type :wide}
            (:office-style/slide-size ir)))
-    (is (= ["ppt/slides/slide1.xml"] (:office-style/slides ir)))))
+    (is (= ["ppt/slides/slide1.xml"] (:office-style/slides ir)))
+    (is (re-find #"<svg" (preview/preview-svg ir)))
+    (is (= ["ppt/slides/slide1.xml"]
+           (map :svgraph/part (:svgraph/slides (svgraph/presentation ir)))))))
