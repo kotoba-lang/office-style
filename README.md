@@ -14,7 +14,8 @@ EDN shape.
 - Implementation: Clojure / ClojureScript portable `.cljc`
 - Host zip support: JVM Clojure for package reads
 - Data surface: EDN maps under `:office-style/*`
-- JavaScript / TypeScript runtime: none
+- JavaScript / TypeScript core runtime: none. The npm package only provides a
+  thin `node` bin wrapper that invokes the Clojure CLI.
 
 ## API
 
@@ -41,6 +42,20 @@ EDN shape.
 - `office-style.style`: deterministic StyleIR extraction
 - `office-style.preview`: SVG preview from StyleIR
 - `office-style.svgraph`: svgraph-friendly EDN projection
+
+## CLI / npm
+
+The CLI works directly with Clojure or through the npm wrapper. In both cases
+`clojure` must be installed on the host.
+
+```bash
+clojure -M:cli extract deck.pptx style.edn
+clojure -M:cli template deck.pptx template.edn
+clojure -M:cli preview deck.pptx preview.svg
+clojure -M:cli svgraph deck.pptx svgraph.edn
+
+npx @kotoba-lang/office-style template deck.pptx template.edn
+```
 
 ## Test
 

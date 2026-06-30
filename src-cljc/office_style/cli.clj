@@ -1,0 +1,49 @@
+(ns office-style.cli
+  (:require [office-style.preview :as preview]
+            [office-style.style :as style]
+            [office-style.svgraph :as svgraph])
+  (:gen-class))
+
+(defn- usage []
+  (str "office-style cli\n\n"
+       "Commands:\n"
+       "  extract <deck.pptx> [out.edn]       extract StyleIR EDN\n"
+       "  template <deck.pptx> [out.edn]      extract reusable template EDN\n"
+       "  preview <deck.pptx> <out.svg>       write preview SVG\n"
+       "  svgraph <deck.pptx> [out.edn]       write svgraph projection EDN\n"))
+
+(defn- read-bytes [path]
+  (java.nio.file.Files/readAllBytes
+   (java.nio.file.Path/of (str path) (into-array String []))))
+
+(defn- emit [x out]
+  (if out
+    (spit out (pr-str x))
+    (prn x)))
+
+(defn- template [ir]
+  {:office-style/template-version 1
+   :office-style/colors (:office-style/colors ir)
+   :office-style/fonts (:office-style/fonts ir)
+   :office-style/slide-size (:office-style/slide-size ir)
+   :office-style/layouts (:office-style/layouts ir)
+   :office-style/masters (:office-style/masters ir)})
+
+(defn -main [& args]
+  (try
+    (case (first args)
+      "extract" (let [[_ file out] args]
+                  (emit (style/extract-bytes (read-bytes file)) out))
+      "template" (let [[_ file out] args]
+                   (emit (template (style/extract-bytes (read-bytes file))) out))
+      "preview" (let [[_ file out] args]
+                  (when-not (and file out) (throw (ex-info (usage) {})))
+                  (spit out (preview/preview-svg (style/extract-bytes (read-bytes file))))
+                  (prn {:office-style/path out}))
+      "svgraph" (let [[_ file out] args]
+                  (emit (svgraph/presentation (style/extract-bytes (read-bytes file))) out))
+      (println (usage)))
+    (catch Exception e
+      (binding [*out* *err*]
+        (println (.getMessage e)))
+      (System/exit 1))))
