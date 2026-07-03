@@ -1,6 +1,16 @@
-# StyleIR スキーマ (`style-ir/1`)
+# StyleIR スキーマ (`style-ir/1`) — 旧設計文書、現行実装とは不一致
 
-正本は `src/types.ts` の zod スキーマ。`StyleIRSchema.parse(obj)` で検証する。
+**注意**: 本文書は `office-style.runtime` を CLJC へリファクタする前(`0c7e434`
+以前)の TypeScript 実装の設計を記述したもので、`src/types.ts` 自体が現行
+コードベースに存在しない。現行 `src-cljc/office_style/style.cljc` が実際に
+返す StyleIR の形は大幅に単純で、`:office-style/colors`(生 srgbClr/sysClr の
+フラットマップ、schemeRef/mods/phClr 解決は無し)・`:office-style/fonts`・
+`:office-style/slide-size`・`:office-style/slides`/`:layouts`/`:masters`
+(いずれもパート名の文字列一覧のみ、中身は未パース)の5フィールドのみを持つ
+(詳細は `README.md` の API 節、または `style.cljc` 本体を正とする)。以下は
+将来この方向へ拡張する場合の参考として残す旧設計。
+
+正本は `src/types.ts` の zod スキーマ(現存しない)。`StyleIRSchema.parse(obj)` で検証する。
 長さ単位は EMU (914400 EMU = 1 inch、9525 EMU = 1 px @96dpi、12700 EMU = 1 pt)。
 
 ## トップレベル
