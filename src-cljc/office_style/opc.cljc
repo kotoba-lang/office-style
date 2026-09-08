@@ -1,6 +1,6 @@
 (ns office-style.opc
   "JVM-backed reader for pptx style-oriented XML parts."
-  (:require [clojure.string :as str])
+  (:require [kotoba.lang.text :as str])
   #?(:clj (:import [java.io ByteArrayInputStream]
                    [java.util.zip ZipInputStream])))
 

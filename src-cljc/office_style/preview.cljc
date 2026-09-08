@@ -1,6 +1,6 @@
 (ns office-style.preview
   "Preview SVG rendering for CLJC StyleIR."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (defn- esc [x]
   (-> (str (or x ""))
@@ -10,7 +10,7 @@
       (str/replace "\"" "&quot;")))
 
 (defn- hex-color [x fallback]
-  (let [s (-> (or x fallback) str (str/replace #"^#" "") str/upper-case)]
+  (let [s (-> (or x fallback) str (str/replace #"^#" "") str/upper)]
     (if (re-matches #"[0-9A-F]{6}" s) s fallback)))
 
 (defn- color [ir role fallback]
