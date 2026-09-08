@@ -1,6 +1,6 @@
 (ns office-style.style
   "Deterministic CLJC StyleIR extraction from PowerPoint OOXML."
-  (:require [clojure.string :as str]
+  (:require [kotoba.lang.text :as str]
             [office-style.opc :as opc]))
 
 (defn- attr [s k]
@@ -48,7 +48,7 @@
         (re-seq #"<a:([A-Za-z0-9]+)>\s*<a:srgbClr\b[^>]*\bval=(['\"])([0-9A-Fa-f]{6})\2" xml)
         (re-seq #"<a:([A-Za-z0-9]+)>\s*<a:sysClr\b[^>]*\blastClr=(['\"])([0-9A-Fa-f]{6})\2" xml))
        (map (fn [[_ role _ color]]
-              [(keyword "office-style.color" role) (str/upper-case color)]))
+              [(keyword "office-style.color" role) (str/upper color)]))
        (into {})))
 
 (defn- typefaces [xml]
