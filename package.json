@@ -4,7 +4,7 @@
   "description": "CLJC PPTX StyleIR extractor, template exporter, and preview renderer.",
   "license": "MIT",
   "bin": {
-    "kotoba-office-style": "bin/kotoba-office-style.cljs"
+    "kotoba-office-style": "bin/kotoba-office-style.cljk"
   },
   "dependencies": {
     "nbb": "^1.3.204"
