@@ -2,7 +2,7 @@
 
 **注意**: 本文書は `office-style.runtime` を CLJC へリファクタする前(`0c7e434`
 以前)の TypeScript 実装の設計を記述したもので、`src/types.ts` 自体が現行
-コードベースに存在しない。現行 `src-cljc/office_style/style.cljc` が実際に
+コードベースに存在しない。現行 `src-cljc/office_style/style.cljk` が実際に
 返す StyleIR の形は大幅に単純で、`:office-style/colors`(生 srgbClr/sysClr の
 フラットマップ、schemeRef/mods/phClr 解決は無し)・`:office-style/fonts`・
 `:office-style/slide-size`・`:office-style/slides`/`:layouts`/`:masters`
