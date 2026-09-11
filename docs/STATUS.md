@@ -46,7 +46,7 @@ TypeScript 実装時代の設計文書であり、現行 CLJC 実装のスキー
 
 | スイート | コマンド | 結果 |
 |---|---|---|
-| ユニット (`office-style.style`/`.preview`/`.svgraph`/`.cli` の17 deftest) | `clojure -X:test`(`npm test` 経由) | pass |
+| ユニット (`office-style.style`/`.preview`/`.svgraph`/`.cli` の17 deftest) | `kbb -X:test`(`npm test` 経由) | pass |
 
 旧STATUS.mdが記載していた `verify:svgraph`/`verify:real`/vision実機/型チェック等の
 検証コマンド群は、対応する実装(旧TS runtime)自体が現行コードベースに存在しないため

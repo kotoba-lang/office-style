@@ -61,10 +61,10 @@ The CLI works directly with Clojure or through the npm wrapper. In both cases
 `clojure` must be installed on the host.
 
 ```bash
-clojure -M:cli extract deck.pptx style.edn
-clojure -M:cli template deck.pptx template.edn
-clojure -M:cli preview deck.pptx preview.svg
-clojure -M:cli svgraph deck.pptx svgraph.edn
+kbb -M:cli extract deck.pptx style.edn
+kbb -M:cli template deck.pptx template.edn
+kbb -M:cli preview deck.pptx preview.svg
+kbb -M:cli svgraph deck.pptx svgraph.edn
 
 npx @kotoba-lang/office-style template deck.pptx template.edn
 ```
@@ -72,7 +72,7 @@ npx @kotoba-lang/office-style template deck.pptx template.edn
 ## Test
 
 ```bash
-clojure -X:test
+kbb -X:test
 ```
 
 The test suite covers StyleIR extraction, XML/relationship input filtering,
