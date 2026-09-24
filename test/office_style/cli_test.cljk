@@ -1,6 +1,6 @@
 (ns office-style.cli-test
   (:require [clojure.edn :as edn]
-            [clojure.test :refer [deftest is]]
+            [kotoba.test :refer [deftest is]]
             [office-style.cli :as cli])
   (:import [java.io ByteArrayOutputStream]
            [java.util.zip ZipEntry ZipOutputStream]))

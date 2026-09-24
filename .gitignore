@@ -6,3 +6,4 @@ examples/sample.pptx
 
 # transformers model cache
 .cache/
+.nbb/
