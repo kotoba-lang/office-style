@@ -1,5 +1,5 @@
 (ns office-style.cli
-  (:require [office-style.preview :as preview]
+  (:require [kotoba.io :as kio] [office-style.preview :as preview]
             [office-style.style :as style]
             [office-style.svgraph :as svgraph])
   (:gen-class))
@@ -13,8 +13,8 @@
        "  svgraph <deck.pptx> [out.edn]       write svgraph projection EDN\n"))
 
 (defn- read-bytes [path]
-  (java.nio.file.Files/readAllBytes
-   (java.nio.file.Path/of (str path) (into-array String []))))
+  (kio/read-all-bytes
+   (str path)))
 
 (defn- emit [x out]
   (if out

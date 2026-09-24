@@ -1,5 +1,5 @@
 (ns office-style.style-test
-  (:require [kotoba.test :refer [deftest is]]
+  (:require [kotoba.bytes :as kbytes] [kotoba.test :refer [deftest is]]
             [office-style.cli :as cli]
             [office-style.opc :as opc]
             [office-style.preview :as preview]
@@ -13,7 +13,7 @@
     (with-open [zip (ZipOutputStream. out)]
       (doseq [[path text] entries]
         (.putNextEntry zip (ZipEntry. path))
-        (.write zip (.getBytes text "UTF-8"))
+        (.write zip (kbytes/utf8-bytes text))
         (.closeEntry zip)))
     (.toByteArray out)))
 

@@ -1,5 +1,5 @@
 (ns office-style.cli-test
-  (:require [kotoba.lang.edn :as edn]
+  (:require [kotoba.bytes :as kbytes] [kotoba.lang.edn :as edn]
             [kotoba.test :refer [deftest is]]
             [office-style.cli :as cli])
   (:import [java.io ByteArrayOutputStream]
@@ -10,7 +10,7 @@
     (with-open [zip (ZipOutputStream. out)]
       (doseq [[path text] entries]
         (.putNextEntry zip (ZipEntry. path))
-        (.write zip (.getBytes text "UTF-8"))
+        (.write zip (kbytes/utf8-bytes text))
         (.closeEntry zip)))
     (.toByteArray out)))
 
